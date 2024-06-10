@@ -73,6 +73,8 @@ app.listen(3000);
 
 module.exports = app;
 
+
+// cron job to run program daily
 const cron = require('node-cron');
 const matchAndNotify = require('./utils/matching.js');
 cron.schedule('0 0 * * *', () => {
