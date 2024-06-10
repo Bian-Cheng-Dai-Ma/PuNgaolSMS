@@ -74,6 +74,8 @@ app.listen(3000);
 module.exports = app;
 
 const cron = require('node-cron');
+const matchAndNotify = require('./utils/matching.js');
 cron.schedule('0 0 * * *', () => {
   console.log('Runnging daily job matching');
+  matchAndNotify();
 });
