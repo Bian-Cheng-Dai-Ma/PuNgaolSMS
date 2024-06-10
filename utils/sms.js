@@ -1,8 +1,6 @@
-const ACCOUNT_SID = "DAFADFA";
-const AUTH_TOKEN = "DAJFK;AJDF";
-
+require('dotenv').config();
 const twilio = require('twilio');
-const client = new twilio('ACCOUNT_SID', 'AUTH_TOKEN');
+const client = new twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 
 const sendSMS = (to, message) => {
     client.messages.create({
