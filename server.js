@@ -3,8 +3,10 @@ var express = require('express');
 const session = require('express-session');
 var path = require('path');
 var cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 var logger = require('morgan');
-var app = express();
+const app = express();
 
 var indexRouter = require('./routes/index')
 var homeRouter = require('./routes/home')
@@ -34,6 +36,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.json());
 
 app.use('/', indexRouter)
 app.use('/home', homeRouter)
@@ -52,18 +55,25 @@ app.use(function(req, res, next) {
   });
   
   
-  // error handler
-  app.use(function(err, req, res, next) {
-    // set locals, only providing error in development
-    res.locals.message = err.message;
-    res.locals.error = req.app.get('env') === 'development' ? err : {};
-  
-    // render the error page
-    res.status(err.status || 500);
-    res.render('error');
-  });
+// error handler
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  app.listen(3000);
-  
-  module.exports = app;
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error');
+});
 
+//connect to MongoDB
+mongoose.connect();
+
+app.listen(3000);
+
+module.exports = app;
+
+const cron = require('node-cron');
+cron.schedule('0 0 * * *', () => {
+  console.log('Runnging daily job matching');
+});
