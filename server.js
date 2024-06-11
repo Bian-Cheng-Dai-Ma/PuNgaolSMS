@@ -27,6 +27,7 @@ app.get('/', (req, res) => {
     res.render("index")
 })
 
+
 //view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -66,6 +67,16 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+app.post('/weather', async (req, res) => {
+  try{
+    const sendSMS = require('../utils/sendSMS');
+    let message = req.body.message;
+    sendSMS('Phone number', message);
+  } catch (error) {
+    console.error("error submiting message")
+  }
+})
+
 //connect to MongoDB
 mongoose.connect();
 
@@ -81,5 +92,5 @@ const matchAndNotify = require('./utils/matching');
 cron.schedule('0 0 * * *', () => {
   console.log('Running daily job matching');
   matchAndNotify();
-  weatherAlert
+  // weatherAlert
 });
