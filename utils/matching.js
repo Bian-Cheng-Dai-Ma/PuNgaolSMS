@@ -1,6 +1,6 @@
-const User = require('../models/User.js');
-const jobListing = require('../models/jobListing.js');
-const sendSMS = require('./sms.js');
+const User = require('../models/User');
+const jobListing = require('../models/jobListing');
+const sendSMS = require('./sms');
 
 const matchAndNotify = async () => {
     const users = await User.find();

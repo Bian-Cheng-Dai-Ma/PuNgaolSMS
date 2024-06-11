@@ -76,8 +76,10 @@ module.exports = app;
 
 // cron job to run program daily
 const cron = require('node-cron');
-const matchAndNotify = require('./utils/matching.js');
+const matchAndNotify = require('./utils/matching');
+
 cron.schedule('0 0 * * *', () => {
   console.log('Running daily job matching');
   matchAndNotify();
+  weatherAlert
 });
