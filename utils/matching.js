@@ -17,7 +17,7 @@ const matchAndNotify = () => {
 
     users.forEach(user => {
         const suitableJobs = jobs.filter(job => 
-            job.tags.some(tag => user.skills.includes(tag))
+            job.tags.length === 0 || job.tags.some(tag => user.skills.includes(tag))
         );
         suitableJobs.forEach(job => {
             const message = `Job Opportunity: ${job.description} at ${job.location}. Contact: ${job.contactDetails}`;

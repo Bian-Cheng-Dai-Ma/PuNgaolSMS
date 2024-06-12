@@ -19,7 +19,7 @@
     <main>
         <div class="form-container-login">
             <div class="form-box">
-                <form action="#" method="POST">
+                <!-- <form action="/job/create" method="POST">
                     <h2>Job Alert</h2>
                     <div class="container">
                         <div class="item1">
@@ -64,6 +64,53 @@
                     </div>
                         
                     
+                </form> -->
+                <form action="/job/create" method="post">
+                    <h2>Job Alert</h2>
+
+                    <div class="container">
+                        <div class="item1">
+                            <label for="position">Position name</label>
+                            <input type="text" name="position" id="position" placeholder="Enter Position" required>
+                            
+                            <label for="deadline">Application deadline</label>
+                            <input type="date" name="deadline" id="deadline">
+
+                            <label for="location">Job Location</label>
+                            <input type="text" name="location" id="location" placeholder="Enter Location" required>
+
+                            <label for="employer">Employer</label>
+                            <input type="text" name="employer" id="employer" placeholder="Enter Company/Employer name" required>
+                            
+                            <label for="description">Description</label>
+                            <textarea name="description" id="description" placeholder="Enter Description of job position"></textarea>
+
+                            <label for="contactDetails">Phone Number</label>
+                            <input type="text" name="contactDetails" id="contactDetails" placeholder="Enter Phone Number" required>
+                        </div>
+                        <div class="tags">
+                            <div class="item2">
+                                <p class="title">Tags</p>
+                                <div class="checkbox">
+                                    <label for="agriculture">Agriculture</label>
+                                    <input type="checkbox" name="tags" value="Agriculture" id="agriculture">
+                                </div>
+                                <div class="checkbox">
+                                    <label for="arithmetic">Arithmetic</label>
+                                    <input type="checkbox" name="tags" value="Arithmetic" id="arithmetic">
+                                </div>
+                                <div class="checkbox">
+                                    <label for="literate">Literate</label>
+                                    <input type="checkbox" name="tags" value="Literate" id="literate">
+                                </div>
+                                <div class="checkbox">
+                                    <label for="physicallyAbled">Physically Abled</label>
+                                    <input type="checkbox" name="tags" value="Physically Abled" id="physicallyAbled">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="submit" id="submit-form"></input>
                 </form>
             </div>
         </div>

@@ -1,9 +1,10 @@
-const express = require('express')
-const router = express.Router()
+const express = require('express');
+const fs = require('fs');
+const router = express.Router();
 
 router.get('/', (req, res) => {
-    res.render("job")
-})
+    res.render("job");
+});
 
 const getJobListings = () => {
     const data = fs.readFileSync('./data/jobListings.json');
@@ -15,15 +16,28 @@ const saveJobListings = (jobs) => {
 };
 
 router.post('/create', (req, res) => {
-    const { date, location, employer, description, tags, contactDetails } = req.body;
+    const { position, deadline, location, employer, description, contactDetails } = req.body;
+    let { tags } = req.body;
+
+    if (!Array.isArray(tags)) {
+        tags = tags ? [tags] : [];
+    }
+
     const jobs = getJobListings();
-    const job = { date, location, employer, description, tags, contactDetails };
+    const job = {
+        position,
+        date: new Date().toLocaleDateString(),
+        deadline,
+        location,
+        employer,
+        description,
+        tags,
+        contactDetails
+    };
+
     jobs.push(job);
     saveJobListings(jobs);
-    res.status(201).send('Job listing created');
+    res.redirect('/job')
 });
 
-
-
-
-module.exports = router
+module.exports = router;
