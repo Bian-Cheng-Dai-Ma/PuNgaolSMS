@@ -8,7 +8,11 @@ const sendSMS = (to, message) => {
     client.messages.create({
         body: message,
         to,
-        from: +447361586260,
+        from: 'YOUR_TWILIO_NUMBER'
+    }).then(message => {
+        console.log(`Message sent to ${to}: ${message.sid}`);
+    }).catch(error => {
+        console.error(`Failed to send message to ${to}: ${error.message}`);
     });
 };
 

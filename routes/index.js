@@ -1,6 +1,6 @@
 var express = require('express')
 var router = express.Router()
-const usermodel = require('../model/Users');
+// const usermodel = require('../model/Users');
 
 router.get('index', (req, res) => {
     res.render("index", {email})

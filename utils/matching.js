@@ -1,14 +1,23 @@
-const User = require('../models/User');
-const jobListing = require('../models/jobListing');
+const fs = require('fs');
 const sendSMS = require('./sms');
 
-const matchAndNotify = async () => {
-    const users = await User.find();
-    const jobs = await JobListing.find();
+const getUsers = () => {
+    const data = fs.readFileSync('./data/users.json');
+    return JSON.parse(data);
+};
+
+const getJobListings = () => {
+    const data = fs.readFileSync('./data/jobListings.json');
+    return JSON.parse(data);
+};
+
+const matchAndNotify = () => {
+    const users = getUsers();
+    const jobs = getJobListings();
 
     users.forEach(user => {
         const suitableJobs = jobs.filter(job => 
-            job.tags.some(tag => user.skills.include(tag))
+            job.tags.some(tag => user.skills.includes(tag))
         );
         suitableJobs.forEach(job => {
             const message = `Job Opportunity: ${job.description} at ${job.location}. Contact: ${job.contactDetails}`;

@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 var logger = require('morgan');
+const fs = require('fs');
 const app = express();
 
 var indexRouter = require('./routes/index')
@@ -46,10 +47,6 @@ app.use('/confirm', confirmRouter)
 app.use('/weather', weatherRouter)
 app.use('/villager', villagerRouter)
 
-app.use(function(req, res, next) {
-    next(createError(404));
-  });
-
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     next(createError(404));
@@ -77,8 +74,12 @@ app.post('/weather', async (req, res) => {
   }
 })
 
-//connect to MongoDB
-mongoose.connect();
+if (!fs.existsSync('./data/users.json')){
+  fs.writeFileSync('./data/users.json', JSON.stringify([]));
+}
+if (!fs.existsSync('./data/jobListings.json')){
+  fs.writeFileSync('./data/jobListings.json', JSON.stringify([]));
+}
 
 app.listen(3000);
 
